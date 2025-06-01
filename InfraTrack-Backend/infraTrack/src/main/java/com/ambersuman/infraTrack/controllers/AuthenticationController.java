@@ -1,0 +1,45 @@
+package com.ambersuman.infraTrack.controllers;
+import com.ambersuman.infraTrack.models.AuthRequest;
+import com.ambersuman.infraTrack.models.AuthResponse;
+import com.ambersuman.infraTrack.models.PasswordChangeRequest;
+import com.ambersuman.infraTrack.models.RegistrationRequest;
+import com.ambersuman.infraTrack.models.GlobalResponse;
+import com.ambersuman.infraTrack.services.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+@RestController
+@RequestMapping("/auth")
+public class AuthenticationController {
+
+    private final AuthService authService;
+
+    @Autowired
+    public AuthenticationController(AuthService authService) {
+        this.authService = authService;
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return "HELLO";
+    }
+
+    @PostMapping("/login")
+    public AuthResponse login(@RequestBody AuthRequest request) {
+        return authService.login(request);
+    }
+
+    @PostMapping("/register")
+    public GlobalResponse login(@ModelAttribute RegistrationRequest request) {
+        return authService.register(request);
+    }
+
+    @PostMapping("/reset-password")
+    public GlobalResponse resetPassword(@RequestBody PasswordChangeRequest request)
+    {
+        return authService.resetPassword(request);
+    }
+
+//    @GetMapping("/")
+}
