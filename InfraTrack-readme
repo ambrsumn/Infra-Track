@@ -1,0 +1,22 @@
+# InfraTrack
+
+**InfraTrack** is a full-stack solution designed for civil engineering companies to manage their material procurement lifecycle — from creating orders to approving quotations and finalizing purchases. It supports multiple user roles and streamlined workflows to handle real-world construction supply chain needs.
+
+---
+
+## 🚀 Features
+
+- 📦 **Order Management**: Create and update material orders easily.
+- 📝 **Quotation Handling**: Submit and compare quotations from multiple vendors.
+- ✅ **Approval Workflows**: Role-based approval system for efficient order processing.
+- 👥 **User Roles**: Built-in support for different user types with custom permissions.
+- 🌐 **Full-Stack Solution**: Robust backend and intuitive frontend for seamless interaction.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React (TypeScript)
+- **Backend**: Java Spring Boot
+- **Database**: MySQL
+
