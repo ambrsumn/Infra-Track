@@ -20,8 +20,7 @@ target/
 *.ipr
 
 # .gitignore
-application.properties
-secrets.properties
+local.properties
 
 ### NetBeans ###
 /nbproject/private/
