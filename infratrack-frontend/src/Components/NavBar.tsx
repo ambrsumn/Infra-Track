@@ -8,28 +8,32 @@ import ApiMiddleware from '../middleware/ApiMiddleware';
 
 function NavBar() {
 
-    // const { apiToken, user, saveUser, saveToken } = useUserContext();
+    const { user } = useUserContext();
 
     useEffect(() => {
-        ApiMiddleware.get('/engineer/test').then((respose: any) => {
-            console.log(respose.data);
-        }).catch((error: any) => {
-            //console.log(error);
-        });
+
+        // console.log(user.profileImage);
 
     }, []);
 
     return (
         <>
-            <div className=' flex flex-row justify-between h-[8vh] pt-8 py-2 px-4 border-b border-gray-500'>
-                <div className=' flex flex-row gap-x-8'>
-                    <FontAwesomeIcon icon={faCode} className=' font-medium text-3xl text-white ' />
-                    <p className=' text-white text-2xl font-medium'>InfraTrack</p>
+            <div className=' flex flex-row justify-between h-[10vh] pt-8 py-2 px-4 border-b border-gray-500'>
+                <div className=' flex flex-row gap-x-8 mt-4'>
+                    <FontAwesomeIcon icon={faCode} className=' font-medium text-4xl text-white ' />
+                    <p className=' text-white text-3xl font-medium'>InfraTrack</p>
                 </div>
 
                 <div>
-                    <div className=' bg-slate-500 rounded-full text-xl px-3 py-2'>
-                        <FontAwesomeIcon icon={faUser} className=' font-medium text-3xl text-gray-300 ' />
+                    <div className=' bg-slate-500 rounded-full text-xl '>
+                        {user.profileImage === null ?
+                            <FontAwesomeIcon icon={faUser} className=' font-medium text-3xl text-gray-300 ' />
+                            :
+                            <img
+                                src={`data:image/jpeg;base64,${user.profileImage}`}
+                                alt="user profile picture"
+                                className="w-20 h-20 rounded-full"
+                            />}
                     </div>
                 </div>
             </div>

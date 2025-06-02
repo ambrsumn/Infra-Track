@@ -61,20 +61,20 @@ public class CommonController  {
 
         return ResponseEntity.ok(response);
     }
-//
-//    @GetMapping("/profile/{id}")
-//    public ResponseEntity<byte[]> getUserDetails(@PathVariable int id)
-//    {
-//        Optional<User> foundUser = userRepository.findById(id);
-//
-//        if(foundUser.isEmpty())
-//        {
-//            return ResponseEntity.notFound().build();
-//        }
-//
-//        User receivedUser = foundUser.get();
-//
-//
-//        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(receivedUser.getProfileImage());
-//    }
+
+    @GetMapping("/profileimage/{id}")
+    public ResponseEntity<byte[]> getUserProfile(@PathVariable int id)
+    {
+        Optional<User> foundUser = userRepository.findById(id);
+
+        if(foundUser.isEmpty())
+        {
+            return ResponseEntity.notFound().build();
+        }
+
+        User receivedUser = foundUser.get();
+
+
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(receivedUser.getProfileImage());
+    }
 }

@@ -21,8 +21,8 @@ public class JwtUtil {
 
     private static final String SECRET = "VL9sC4UjHTk8mZH8E1RBYF2QnTQzIcxuZfKdbCmrXsY=";
     private static final SecretKey SECRET_KEY = new SecretKeySpec(Base64.getDecoder().decode(SECRET), "HmacSHA256");
-//    private final long EXPIRATION_TIME = 1000 * 60 * 60 * 5; // 10 hours
-    private final long EXPIRATION_TIME = 1000 * 60 * 1; // 1 minute
+    private final long EXPIRATION_TIME = 1000 * 60 * 60 * 5; // 5 hours
+//    private final long EXPIRATION_TIME = 1000 * 60 * 1; // 1 minute
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

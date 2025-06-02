@@ -5,7 +5,7 @@ import BuildingHome from './Components/BuildingHome';
 import NavBar from './Components/NavBar';
 import Sidebar from './Components/Sidebar';
 import Home from './Components/Home';
-import { useUserContext } from './Context/UserContext';
+import { UserProvider, useUserContext } from './Context/UserContext';
 import SidebarMinimal from './Components/SidebarMinimal';
 import LoginPage from './Components/LoginPage';
 import RegisterPage from './Components/RegisterPage';
@@ -26,7 +26,7 @@ function App() {
       let userDetails = JSON.parse(user);
 
       if (userDetails.email !== '') {
-        console.log(user);
+        // console.log(user);
         setLogginId(true);
         setCurrentTab("Home");
       }
@@ -43,7 +43,11 @@ function App() {
     setCurrentTab(tabName);
   }
 
-  return <RouterProvider router={router} />;;
+  return (
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
+  )
 }
 
 export default App;

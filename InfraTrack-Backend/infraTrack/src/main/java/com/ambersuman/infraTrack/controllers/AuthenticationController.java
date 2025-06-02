@@ -6,6 +6,7 @@ import com.ambersuman.infraTrack.models.RegistrationRequest;
 import com.ambersuman.infraTrack.models.GlobalResponse;
 import com.ambersuman.infraTrack.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,7 +27,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest request) {
+    public ResponseEntity login(@RequestBody AuthRequest request) {
         return authService.login(request);
     }
 

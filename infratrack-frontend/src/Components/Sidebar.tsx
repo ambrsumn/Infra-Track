@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { faHome, faCartShopping, faGear } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faCartShopping, faGear, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 // import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useUserContext } from '../Context/UserContext';
 
 function Sidebar({ getSelectedTab }: any) {
     const navigate = useNavigate();
 
     const [selectedTab, setSelectedTab] = useState("Home");
+
+    const { saveUser, setLoggedIn, saveToken } = useUserContext();
 
     const selectTab = (tabName: string) => {
         console.log(tabName);
@@ -17,11 +20,21 @@ function Sidebar({ getSelectedTab }: any) {
         navigate(`/${tabName}`);
     }
 
+    const Logout = () => {
+        saveUser(null);
+        setLoggedIn(false);
+        saveToken('');
+        localStorage.removeItem('token');
+        localStorage.removeItem('userDetails');
+        selectTab("Login");
+        navigate('/Login');
+    }
+
     return (
         <>
             <div className=' pt-4 flex flex-col justify-between ml-2 h-full'>
                 <div className=' flex flex-col gap-y-8'>
-                    <div onSelect={() => selectTab('')} className={` hover:cursor-pointer flex flex-row gap-x-6 w-[60%] ${selectedTab === "Home" ? 'bg-gray-700' : ''} rounded-full px-4 py-2`} onClick={() => selectTab("")}>
+                    <div onSelect={() => selectTab('home')} className={` hover:cursor-pointer flex flex-row gap-x-6 w-[60%] ${selectedTab === "Home" ? 'bg-gray-700' : ''} rounded-full px-4 py-2`} onClick={() => selectTab("home")}>
                         <FontAwesomeIcon icon={faHome} className=' text-white text-2xl' />
                         <p className=' text-white text-2xl font-medium'>Home</p>
                     </div>
@@ -34,6 +47,11 @@ function Sidebar({ getSelectedTab }: any) {
                     <div onSelect={() => selectTab('Settings')} className={` hover:cursor-pointer flex flex-row gap-x-6 w-[60%] ${selectedTab === "Settings" ? 'bg-gray-700' : ''} rounded-full px-4 py-2`} onClick={() => selectTab("Settings")}>
                         <FontAwesomeIcon icon={faGear} className=' text-white text-2xl' />
                         <p className=' text-white text-2xl font-medium'>Settings</p>
+                    </div>
+
+                    <div onSelect={() => Logout()} className={` hover:cursor-pointer flex flex-row gap-x-6 w-[60%] ${selectedTab === "Logout" ? 'bg-gray-700' : ''} rounded-full px-4 py-2`} onClick={() => Logout()}>
+                        <FontAwesomeIcon icon={faRightFromBracket} className=' text-white text-2xl' />
+                        <p className=' text-white text-2xl font-medium'>Logout</p>
                     </div>
                 </div>
 

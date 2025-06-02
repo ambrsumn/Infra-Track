@@ -1,35 +1,54 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { TextField } from '@mui/material'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
+import { useUserContext } from '../Context/UserContext';
 
 function ProfilePage() {
 
-    const [password, setPassword] = useState('Ambr@#1234');
-    const [securityKey, setSecurityKey] = useState('HelloolleH');
+    const [password, setPassword] = useState('');
+    const [securityKey, setSecurityKey] = useState('');
     const [showPassword, setShowPassword] = useState(true);
-    const [firstName, setFirstName] = useState('Amber');
-    const [lastName, setLastName] = useState('Suman');
-    const [email, setEmail] = useState('ambrsumn@gmail.com');
-    const [phone, setPhone] = useState('7321893703');
-    const [designation, setDesignation] = useState('Engineer');
-    const [company, setCompany] = useState('EHDJV');
-    const [imageFile, setImageFile] = useState<File | null>(null);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [designation, setDesignation] = useState('');
+    const [company, setCompany] = useState(''); const [imageFile, setImageFile] = useState<File | null>(null);
     const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
 
     const designationList: string[] = ['Engineer', 'Product Manager', 'Purchaser', 'Store Incharge', 'Director'];
+
+    // const user = JSON.parse(localStorage.getItem('userDetails') || '{}');
+    const { user } = useUserContext();
+
+    useEffect(() => {
+        console.log(user);
+        if (user) {
+            console.log(user);
+            setFirstName(user.firstName);
+            setLastName(user.lastName);
+            setEmail(user.email);
+            setPhone(user.phone);
+            setDesignation(user.designation);
+            setCompany(user.company);
+            setPassword(user.password);
+            setSecurityKey(user.securityKey);
+
+            if (user.profileImage) {
+                // Assume it's a base64 string without data URI prefix
+                setImagePreviewUrl(`data:image/jpeg;base64,${user.profileImage}`);
+            }
+        }
+    }, [])
 
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file && file.type.startsWith('image/')) {
             setImageFile(file);
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImagePreviewUrl(reader.result as string);
-            };
-            reader.readAsDataURL(file);
+            setImagePreviewUrl(URL.createObjectURL(file));
         } else {
             setImageFile(null);
             setImagePreviewUrl(null);
@@ -54,7 +73,7 @@ function ProfilePage() {
 
     return (
         <div className=' w-[60%] h-[85%] mx-auto mt-24 px-6 py-4 rounded-3xl shadow-md bg-[#212529] text-white'>
-            <p className=' text-2xl mb-12 italic text-blue-500'>Hello Amber, Update Your Profile</p>
+            <p className=' text-2xl mb-12 italic text-blue-500'>Hello {firstName}</p>
 
             <div className=' flex flex-row justify-between'>
                 <TextField className=' w-[45%]' sx={{

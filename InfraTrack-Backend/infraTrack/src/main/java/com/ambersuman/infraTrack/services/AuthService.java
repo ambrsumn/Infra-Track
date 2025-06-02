@@ -7,6 +7,7 @@ import com.ambersuman.infraTrack.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -48,13 +49,14 @@ public class AuthService {
         System.out.println("new token " + newToken);
     }
 
-    public AuthResponse login(AuthRequest request) {
+    public ResponseEntity login(AuthRequest request) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
             );
         } catch (BadCredentialsException ex) {
-            return new AuthResponse("", "Invalid Email or Password", false);
+//            return new AuthResponse("", "Invalid Email or Password", false);
+            return ResponseEntity.badRequest().body("Invalid Email or Password");
         }
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
@@ -69,8 +71,9 @@ public class AuthService {
 
             UserDetailsResponse userObject = new UserDetailsResponse(user.getFirstName(),
                     user.getId(), user.getEmail(), user.getRoleName(), user.getLastName(), user.getCompanyName(), user.getProfileImage());
-             
-             return new AuthResponse(jwt, "Logged In successfully", true, userObject);
+
+            AuthResponse response = new AuthResponse(jwt, "Logged In successfully", true, userObject);
+             return ResponseEntity.ok(response);
 
 
 //        System.out.println(jwt);

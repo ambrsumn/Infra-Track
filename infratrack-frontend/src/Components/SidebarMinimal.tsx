@@ -2,13 +2,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react'
 import { faUserPlus, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 function SidebarMinimal({ getSelectedTab }: any) {
+
+    const navigate = useNavigate();
     const [selectedTab, setSelectedTab] = useState("Login");
 
     const selectTab = (tabName: string) => {
         setSelectedTab(tabName);
-        getSelectedTab(tabName);
+        // getSelectedTab(tabName);
+        navigate(`/${tabName}`);
     }
 
     return (
