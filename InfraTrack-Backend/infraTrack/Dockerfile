@@ -1,14 +1,13 @@
-# Start with a base image that has Java 21 runtime
-FROM eclipse-temurin:21-jdk-alpine
-
-# Set a directory inside the container
+# Stage 1: Build
+FROM maven:3.9.2-eclipse-temurin-21 AS build
 WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Copy the jar file into the container
-COPY target/*.jar app.jar
-
-# Expose port 8080 (default Spring Boot port)
+# Stage 2: Run
+FROM eclipse-temurin:21-jdk-alpine
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Run the jar file
 ENTRYPOINT ["java", "-jar", "app.jar"]
