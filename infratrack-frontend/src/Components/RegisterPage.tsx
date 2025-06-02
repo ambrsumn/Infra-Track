@@ -10,7 +10,7 @@ import { Loader } from '@react-three/drei';
 import LoaderSpinner from './UiComponents/LoaderSpinner';
 import SnackBar from './UiComponents/SnackBar';
 
-function RegisterPage({ getSelectedTab }: { getSelectedTab: (tab: string) => void }) {
+function RegisterPage() {
 
     const [password, setPassword] = useState('');
     const [securityKey, setSecurityKey] = useState('');
@@ -80,9 +80,9 @@ function RegisterPage({ getSelectedTab }: { getSelectedTab: (tab: string) => voi
             setSnackBar(true);
 
 
-            setTimeout(() => {
-                getSelectedTab('Login');
-            }, 5000);
+            // setTimeout(() => {
+            //     getSelectedTab('Login');
+            // }, 5000);
 
         }
         catch (error: any) {

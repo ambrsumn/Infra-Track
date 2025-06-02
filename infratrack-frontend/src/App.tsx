@@ -11,6 +11,8 @@ import LoginPage from './Components/LoginPage';
 import RegisterPage from './Components/RegisterPage';
 import OrderPage from './Components/OrderPage';
 import ProfilePage from './Components/ProfilePage';
+import { RouterProvider } from 'react-router-dom';
+import router from './Routes';
 
 function App() {
 
@@ -41,64 +43,7 @@ function App() {
     setCurrentTab(tabName);
   }
 
-  return (
-    <div className="App bg-[#222831] h-[100vh] w-full rounded-lg shadow-md">
-
-      {/* NAVBAR */}
-      <NavBar />
-
-
-      {/* MAIN  */}
-
-      <div className=' flex flex-row h-[92vh] w-full'>
-        {/* SIDEBAR  */}
-        {
-          logginId &&
-          <div className='w-[20%] border-r border-gray-500 h-full'>
-            <Sidebar getSelectedTab={getSelectedTab} />
-          </div>
-        }
-
-        {
-          !logginId &&
-          <div className='w-[20%] border-r border-gray-500 h-full'>
-            <SidebarMinimal getSelectedTab={getSelectedTab} />
-          </div>
-        }
-
-        <div className='w-[80%] h-full'>
-          {/* CONTENT  */}
-          {currentTab === 'Home' &&
-            <Home />
-          }
-
-          {currentTab === 'Orders' &&
-            <OrderPage />
-          }
-
-          {currentTab === 'Settings' &&
-            <ProfilePage />
-          }
-
-          {currentTab === 'Login' &&
-            <LoginPage />
-          }
-
-          {currentTab === 'Register' &&
-            <RegisterPage getSelectedTab={getSelectedTab} />
-          }
-        </div>
-
-      </div>
-      {/* <div className=' w-[80%] mx-auto h-full'>
-      <BuildingHome />
-      </div> */}
-
-
-      {/* FOOTER  */}
-
-    </div>
-  );
+  return <RouterProvider router={router} />;;
 }
 
 export default App;
