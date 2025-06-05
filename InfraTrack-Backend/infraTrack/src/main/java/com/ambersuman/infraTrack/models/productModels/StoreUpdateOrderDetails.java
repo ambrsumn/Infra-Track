@@ -5,7 +5,7 @@ public class StoreUpdateOrderDetails {
     private int id;
     private String status = "";
     private String storeRemarks = "";
-    private int finalizedQuantity = 0;
+    private Integer finalizedQuantity = 0;
 
     public StoreUpdateOrderDetails(){}
 
@@ -51,11 +51,11 @@ public class StoreUpdateOrderDetails {
         this.storeRemarks = storeRemarks;
     }
 
-    public int getFinalizedQuantity() {
+    public Integer getFinalizedQuantity() {
         return finalizedQuantity;
     }
 
-    public void setFinalizedQuantity(int finalizedQuantity) {
+    public void setFinalizedQuantity(Integer finalizedQuantity) {
         this.finalizedQuantity = finalizedQuantity;
     }
 }

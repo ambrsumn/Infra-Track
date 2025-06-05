@@ -89,7 +89,9 @@ public class StoreService {
             Optional<Product> finder = productRepository.findById(request.getId());
             Product selectedProduct = finder.get();
             if(request.getStatus() != "")selectedProduct.setStatus(request.getStatus());
-            if(request.getFinalizedQuantity() != 0)selectedProduct.setFinalizedQuantity(request.getFinalizedQuantity());
+            if (request.getFinalizedQuantity() != null && request.getFinalizedQuantity() >= 0) {
+                selectedProduct.setFinalizedQuantity(request.getFinalizedQuantity());
+            }
             if(request.getStoreRemarks() != "")selectedProduct.setStoreRemarks(request.getStoreRemarks());
 
             productRepository.save(selectedProduct);

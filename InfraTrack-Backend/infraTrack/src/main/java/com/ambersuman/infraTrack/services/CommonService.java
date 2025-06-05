@@ -28,6 +28,7 @@ public class CommonService {
 
     public ResponseEntity viewAllOrders()
     {
+//        System.out.println("API CALLED");
         List<Product> allOrders = new ArrayList<>();
         allOrders = productRepository.findAll();
 

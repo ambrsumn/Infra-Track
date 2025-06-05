@@ -18,7 +18,7 @@ public class Product {
     private String requestedQuantity;
 
     @Column(name="finalized_quantity")
-    private int finalizedQuantity;
+    private Integer finalizedQuantity;
 
     @Column(name="ordered_by")
     private int orderedBy;
@@ -97,11 +97,11 @@ public class Product {
         this.requestedQuantity = requestedQuantity;
     }
 
-    public int getFinalizedQuantity() {
+    public Integer getFinalizedQuantity() {
         return finalizedQuantity;
     }
 
-    public void setFinalizedQuantity(int finalizedQuantity) {
+    public void setFinalizedQuantity(Integer finalizedQuantity) {
         this.finalizedQuantity = finalizedQuantity;
     }
 
