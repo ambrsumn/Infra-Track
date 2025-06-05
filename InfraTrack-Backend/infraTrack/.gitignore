@@ -23,7 +23,6 @@ target/
 
 # .gitignore
 local.properties
-#application.properties
 
 ### NetBeans ###
 /nbproject/private/
