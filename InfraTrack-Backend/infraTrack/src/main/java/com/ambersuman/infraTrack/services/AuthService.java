@@ -1,5 +1,9 @@
 package com.ambersuman.infraTrack.services;
 import com.ambersuman.infraTrack.models.*;
+import com.ambersuman.infraTrack.models.authModels.AuthRequest;
+import com.ambersuman.infraTrack.models.authModels.AuthResponse;
+import com.ambersuman.infraTrack.models.authModels.PasswordChangeRequest;
+import com.ambersuman.infraTrack.models.authModels.RegistrationRequest;
 import com.ambersuman.infraTrack.repository.UserRepository;
 import com.ambersuman.infraTrack.utils.JwtUtil;
 import com.ambersuman.infraTrack.entities.User;
@@ -56,7 +60,8 @@ public class AuthService {
             );
         } catch (BadCredentialsException ex) {
 //            return new AuthResponse("", "Invalid Email or Password", false);
-            return ResponseEntity.badRequest().body("Invalid Email or Password");
+            GlobalResponse response = new GlobalResponse("Invalid Email or Password", System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value());
+            return ResponseEntity.badRequest().body(response);
         }
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
@@ -70,7 +75,7 @@ public class AuthService {
              String jwt = jwtUtil.generateToken(userDetails, user.getRoleName());
 
             UserDetailsResponse userObject = new UserDetailsResponse(user.getFirstName(),
-                    user.getId(), user.getEmail(), user.getRoleName(), user.getLastName(), user.getCompanyName(), user.getProfileImage());
+                    user.getId(), user.getEmail(), user.getRoleName(), user.getLastName(), user.getCompanyName(), user.getPhone(), user.getProfileImage());
 
             AuthResponse response = new AuthResponse(jwt, "Logged In successfully", true, userObject);
              return ResponseEntity.ok(response);

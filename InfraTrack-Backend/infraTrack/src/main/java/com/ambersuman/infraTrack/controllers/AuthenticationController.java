@@ -1,14 +1,12 @@
 package com.ambersuman.infraTrack.controllers;
-import com.ambersuman.infraTrack.models.AuthRequest;
-import com.ambersuman.infraTrack.models.AuthResponse;
-import com.ambersuman.infraTrack.models.PasswordChangeRequest;
-import com.ambersuman.infraTrack.models.RegistrationRequest;
+import com.ambersuman.infraTrack.models.authModels.AuthRequest;
+import com.ambersuman.infraTrack.models.authModels.PasswordChangeRequest;
+import com.ambersuman.infraTrack.models.authModels.RegistrationRequest;
 import com.ambersuman.infraTrack.models.GlobalResponse;
 import com.ambersuman.infraTrack.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/auth")

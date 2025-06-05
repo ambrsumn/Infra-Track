@@ -1,4 +1,4 @@
-package com.ambersuman.infraTrack.models;
+package com.ambersuman.infraTrack.models.authModels;
 
 public class AuthResponse {
     private boolean success;

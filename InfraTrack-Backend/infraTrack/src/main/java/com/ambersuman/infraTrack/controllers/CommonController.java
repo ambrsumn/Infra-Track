@@ -57,6 +57,7 @@ public class CommonController  {
                 receivedUser.getRoleName(),
                 receivedUser.getLastName(),
                 receivedUser.getCompanyName(),
+                receivedUser.getPhone(),
                 receivedUser.getProfileImage());
 
         return ResponseEntity.ok(response);

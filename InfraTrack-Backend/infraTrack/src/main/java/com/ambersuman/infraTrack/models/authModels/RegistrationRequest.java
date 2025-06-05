@@ -1,4 +1,4 @@
-package com.ambersuman.infraTrack.models;
+package com.ambersuman.infraTrack.models.authModels;
 
 import org.springframework.web.multipart.MultipartFile;
 

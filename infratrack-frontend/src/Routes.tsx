@@ -5,6 +5,7 @@ import OrderPage from "./Components/OrderPage";
 import ProfilePage from "./Components/ProfilePage";
 import LoginPage from "./Components/LoginPage";
 import RegisterPage from "./Components/RegisterPage";
+import PlaceOrderPage from "./Components/PlaceOrderPage";
 
 const router = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <RegisterPage />
+            },
+            {
+                path: '/place-order',
+                element: <PlaceOrderPage />
             }
 
         ]

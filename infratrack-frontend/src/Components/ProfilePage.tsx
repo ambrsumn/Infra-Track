@@ -25,15 +25,16 @@ function ProfilePage() {
     const { user } = useUserContext();
 
     useEffect(() => {
-        console.log(user);
+        // console.log(user);
         if (user) {
-            console.log(user);
+            console.log(user.roleName);
+            // console.log(user);
             setFirstName(user.firstName);
             setLastName(user.lastName);
             setEmail(user.email);
             setPhone(user.phone);
-            setDesignation(user.designation);
-            setCompany(user.company);
+            setDesignation(user.roleName);
+            setCompany(user.companyName);
             setPassword(user.password);
             setSecurityKey(user.securityKey);
 
@@ -42,7 +43,7 @@ function ProfilePage() {
                 setImagePreviewUrl(`data:image/jpeg;base64,${user.profileImage}`);
             }
         }
-    }, [])
+    }, [user])
 
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -72,7 +73,7 @@ function ProfilePage() {
 
 
     return (
-        <div className=' w-[60%] h-[85%] mx-auto mt-24 px-6 py-4 rounded-3xl shadow-md bg-[#212529] text-white'>
+        <div className=' w-[60%] h-[70%] mx-auto mt-24 px-6 py-4 rounded-3xl shadow-md bg-[#212529] text-white'>
             <p className=' text-2xl mb-12 italic text-blue-500'>Hello {firstName}</p>
 
             <div className=' flex flex-row justify-between'>
@@ -174,6 +175,7 @@ function ProfilePage() {
                 }}
                     disablePortal
                     options={designationList}
+                    value={designation}
                     renderInput={(params) => <TextField {...params} label="Designation" value={designation} onChange={(e) => setDesignation(e.target.value)} />}
                 />
 
@@ -196,56 +198,6 @@ function ProfilePage() {
                     id="companyName"
                     label='Company Name'
                     variant="outlined" value={company} onChange={(e) => setCompany(e.target.value)} />
-            </div>
-            <div className=' mt-12 flex flex-row justify-between'>
-                <div className=' flex flex-row gap-x-4 w-[45%]'>
-                    <TextField className=' w-full' sx={{
-                        '& .MuiOutlinedInput-root': {
-                            '& fieldset': {
-                                borderColor: 'white',
-                                borderRadius: '20px',
-                            },
-                        },
-                        '& .MuiInputLabel-root': {
-                            color: 'white',
-                            fontSize: '1.5rem'
-                        },
-                        '& .MuiOutlinedInput-input': {
-                            color: 'white',
-                            fontSize: '1.5rem'
-                        }
-                    }}
-                        id="password" label='Password' type='password' variant="outlined" value={password} onChange={(e) => setPassword(e.target.value)} />
-                    {showPassword &&
-                        <button><FontAwesomeIcon icon={faEye} onClick={() => { seePassword() }} /> </button>}
-
-                    {!showPassword &&
-                        <button><FontAwesomeIcon icon={faEyeSlash} onClick={() => { seePassword() }} /> </button>}
-                </div>
-
-                <div className=' flex flex-col gap-y-1 w-[45%]'>
-                    <TextField className=' w-full' sx={{
-                        '& .MuiOutlinedInput-root': {
-                            '& fieldset': {
-                                borderColor: 'white',
-                                borderRadius: '20px',
-                            },
-                        },
-                        '& .MuiInputLabel-root': {
-                            color: 'white',
-                            fontSize: '1.5rem'
-                        },
-                        '& .MuiOutlinedInput-input': {
-                            color: 'white',
-                            fontSize: '1.5rem'
-                        }
-                    }}
-                        id="securityKey" label='Security Code' type='text' variant="outlined" onChange={(e) => { setSecurityKey(e.target.value) }} value={securityKey} />
-                    {
-                        securityKey?.trim() !== '' && <p className=' text-red-500 text-left pl-2'>Do not your security code with anyone</p>
-                    }
-                </div>
-
             </div>
 
             <div className="flex flex-col items-center gap-6 mt-16">

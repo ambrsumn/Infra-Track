@@ -23,6 +23,7 @@ target/
 
 # .gitignore
 local.properties
+application.properties
 
 ### NetBeans ###
 /nbproject/private/
@@ -37,5 +38,5 @@ build/
 ### VS Code ###
 .vscode/
 
-!InfraTrack-Backend/infraTrack/src/main/resources/application.properties
+#!InfraTrack-Backend/infraTrack/src/main/resources/application.properties
 

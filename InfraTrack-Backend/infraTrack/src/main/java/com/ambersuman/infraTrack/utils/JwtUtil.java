@@ -16,9 +16,6 @@ import java.util.Base64;
 
 @Component
 public class JwtUtil {
-
-
-
     private static final String SECRET = "VL9sC4UjHTk8mZH8E1RBYF2QnTQzIcxuZfKdbCmrXsY=";
     private static final SecretKey SECRET_KEY = new SecretKeySpec(Base64.getDecoder().decode(SECRET), "HmacSHA256");
     private final long EXPIRATION_TIME = 1000 * 60 * 60 * 5; // 5 hours

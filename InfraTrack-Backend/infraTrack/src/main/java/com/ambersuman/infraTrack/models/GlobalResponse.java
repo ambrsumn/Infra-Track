@@ -1,16 +1,34 @@
 package com.ambersuman.infraTrack.models;
 
+import java.util.List;
+
 public class GlobalResponse {
 
     private int status;
     private String message;
     private long timeStamp;
+    private List data;
 
     public GlobalResponse(){}
     public GlobalResponse(String message, long timeStamp, int status) {
         this.message = message;
         this.timeStamp = timeStamp;
         this.status = status;
+    }
+
+    public GlobalResponse(String message, long timeStamp, int status, List data) {
+        this.message = message;
+        this.timeStamp = timeStamp;
+        this.data = data;
+        this.status = status;
+    }
+
+    public List getData() {
+        return data;
+    }
+
+    public void setData(List data) {
+        this.data = data;
     }
 
     public String getMessage() {

@@ -9,19 +9,21 @@ public class UserDetailsResponse {
     private String companyName;
     private int userId;
     private byte[] profileImage;
+    private String phone;
 
     public UserDetailsResponse(){}
 
-    public UserDetailsResponse(String firstName, int userId, String email, String roleName, String lastName, String companyName) {
+    public UserDetailsResponse(String firstName, int userId, String email, String roleName, String lastName, String companyName, String phone) {
         this.firstName = firstName;
         this.userId = userId;
         this.email = email;
         this.roleName = roleName;
         this.lastName = lastName;
         this.companyName = companyName;
+        this.phone = phone;
     }
 
-    public UserDetailsResponse(String firstName, int userId, String email, String roleName, String lastName, String companyName, byte[] profileImage) {
+    public UserDetailsResponse(String firstName, int userId, String email, String roleName, String lastName, String companyName, String phone, byte[] profileImage) {
         this.firstName = firstName;
         this.userId = userId;
         this.email = email;
@@ -29,6 +31,8 @@ public class UserDetailsResponse {
         this.lastName = lastName;
         this.profileImage = profileImage;
         this.companyName = companyName;
+        this.phone = phone;
+
     }
 
     public byte[] getProfileImage() {
@@ -77,5 +81,21 @@ public class UserDetailsResponse {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
