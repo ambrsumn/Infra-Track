@@ -40,5 +40,11 @@ public class AuthenticationController {
         return authService.resetPassword(request);
     }
 
+    @PutMapping("/update-profile")
+    public GlobalResponse updateProfile(@ModelAttribute RegistrationRequest request)
+    {
+        return authService.updateProfile(request);
+    }
+
 //    @GetMapping("/")
 }

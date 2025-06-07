@@ -19,12 +19,12 @@ function SidebarMinimal({ getSelectedTab }: any) {
         <>
             <div className=' pt-4 flex flex-col justify-between ml-2 h-full'>
                 <div className=' flex flex-col gap-y-8'>
-                    <div onSelect={() => selectTab('Home')} className={` hover:cursor-pointer flex flex-row gap-x-6 w-[60%] ${selectedTab === "Home" ? 'bg-gray-700' : ''} rounded-full px-4 py-2`} onClick={() => selectTab("Login")}>
+                    <div onSelect={() => selectTab('Login')} className={` hover:cursor-pointer flex flex-row gap-x-6 w-[60%] ${selectedTab === "Login" ? 'bg-gray-700' : ''} rounded-full px-4 py-2`} onClick={() => selectTab("Login")}>
                         <FontAwesomeIcon icon={faRightToBracket} className=' text-white text-2xl' />
                         <p className=' text-white text-2xl font-medium'>Login</p>
                     </div>
 
-                    <div onSelect={() => selectTab('Orders')} className={` hover:cursor-pointer flex flex-row gap-x-6 w-[60%] ${selectedTab === "Orders" ? 'bg-gray-700' : ''} rounded-full px-4 py-2`} onClick={() => selectTab("Register")}>
+                    <div onSelect={() => selectTab('Register')} className={` hover:cursor-pointer flex flex-row gap-x-6 w-[60%] ${selectedTab === "Register" ? 'bg-gray-700' : ''} rounded-full px-4 py-2`} onClick={() => selectTab("Register")}>
                         <FontAwesomeIcon icon={faUserPlus} className=' text-white text-2xl' />
                         <p className=' text-white text-2xl font-medium'>Register</p>
                     </div>

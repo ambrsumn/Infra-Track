@@ -16,7 +16,7 @@ ApiMiddleware.interceptors.request.use((config) => {
         //console.log(user.roleName);
         // axios.get
 
-        axios.get(`http://localhost:8080/infratrack/api/${user.roleName}/test`, {
+        axios.get(`http://localhost:8080/infratrack/api/${user.roleName.split(' ')[0].toLowerCase()}/test`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

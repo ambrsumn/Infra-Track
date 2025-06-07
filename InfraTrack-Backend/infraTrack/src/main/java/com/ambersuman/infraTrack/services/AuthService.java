@@ -188,4 +188,58 @@ public class AuthService {
         return response;
 //        return new GlobalResponse("hi", System.currentTimeMillis(), 202);
     }
+
+    public GlobalResponse updateProfile(RegistrationRequest request) {
+
+        System.out.println(request.getProfileImage());
+        System.out.println(request.getPhone());
+        System.out.println(request.getFirstName());
+        System.out.println(request.getProfileImage());
+
+
+
+        try
+        {
+            Optional<User> finder = userRepository.findByFirstName(request.getFirstName());
+            User foundUser = finder.get();
+
+            System.out.println(foundUser.getPhone());
+
+            if(foundUser.getPhone() != request.getPhone())foundUser.setPhone(request.getPhone());
+            if(foundUser.getEmail() != request.getEmail())foundUser.setEmail(request.getEmail());
+            if(foundUser.getRoleName() != request.getRoleName())foundUser.setRoleName(request.getRoleName());
+
+            if(request.getProfileImage() != null)
+            {
+                System.out.println("YES");
+                byte[] imageBytes = request.getProfileImage().getBytes();
+                foundUser.setProfileImage(imageBytes);
+            }
+
+            try
+            {
+                System.out.println("YESS");
+                User savedUser = userRepository.save(foundUser);
+                System.out.println(savedUser.getId());
+                System.out.println("no error");
+                GlobalResponse res = new GlobalResponse("Profile Updated SucessFully", System.currentTimeMillis(), 202);
+                return res;
+
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+                GlobalResponse res = new GlobalResponse(e.getMessage(), System.currentTimeMillis(), 500);
+                return res;
+            }
+
+
+        }
+        catch(Exception e)
+        {
+            System.out.println("236 " +  e.getMessage());
+
+            GlobalResponse res = new GlobalResponse(e.getMessage(), System.currentTimeMillis(), 500);
+            return res;
+        }
+    }
 }

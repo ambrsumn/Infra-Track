@@ -31,9 +31,15 @@ public class EngineerController {
         return this.engineerService.placeOrder(request);
     }
 
-    @DeleteMapping("/place-order/{orderId}")
+    @DeleteMapping("/delete-order/{orderId}")
     public ResponseEntity deleteOrder(@PathVariable("orderId") int orderId)
     {
         return this.engineerService.deleteOrder(orderId);
+    }
+
+    @GetMapping("/orders/{id}")
+    public ResponseEntity viewOrders(@PathVariable int id)
+    {
+        return this.engineerService.viewOrders(id);
     }
 }

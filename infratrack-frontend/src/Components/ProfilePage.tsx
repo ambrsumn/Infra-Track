@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import { useUserContext } from '../Context/UserContext';
+import ApiMiddleware from '../middleware/ApiMiddleware';
 
 function ProfilePage() {
 
@@ -67,8 +68,24 @@ function ProfilePage() {
         }
     }
 
-    const updateProfile = () => {
-        //console.log("clicked");
+    const updateProfile = async () => {
+        console.log(firstName, lastName, email, phone, designation, company, imageFile);
+
+        let formData = new FormData();
+        formData.append('firstName', firstName);
+        formData.append('lastName', lastName);
+        formData.append('email', email);
+        formData.append('phone', phone);
+        formData.append('roleName', designation);
+        formData.append('company', company);
+        formData.append('profileImage', imageFile || new Blob());
+        await ApiMiddleware.put(`/auth/update-profile`, formData).then((res) => {
+            console.log(res);
+            alert("Profile Updated Successfully");
+
+        }).catch((err: any) => {
+            console.log(err);
+        })
     }
 
 
@@ -77,7 +94,7 @@ function ProfilePage() {
             <p className=' text-2xl mb-12 italic text-blue-500'>Hello {firstName}</p>
 
             <div className=' flex flex-row justify-between'>
-                <TextField className=' w-[45%]' sx={{
+                <TextField className=' w-[45%]' disabled sx={{
                     '& .MuiOutlinedInput-root': {
                         '& fieldset': {
                             borderColor: 'white',
@@ -112,7 +129,7 @@ function ProfilePage() {
                         fontSize: '1.5rem'
                     }
                 }}
-                    id="lname" label='Last Name' variant="outlined" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                    id="lname" label='Last Name' variant="outlined" disabled value={lastName} onChange={(e) => setLastName(e.target.value)} />
 
             </div>
             <div className=' flex flex-row justify-between mt-12'>
@@ -197,7 +214,7 @@ function ProfilePage() {
                 }}
                     id="companyName"
                     label='Company Name'
-                    variant="outlined" value={company} onChange={(e) => setCompany(e.target.value)} />
+                    variant="outlined" value={company} disabled onChange={(e) => setCompany(e.target.value)} />
             </div>
 
             <div className="flex flex-col items-center gap-6 mt-16">

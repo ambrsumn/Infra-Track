@@ -7,6 +7,7 @@ import { useUserContext } from '../Context/UserContext';
 import SidebarMinimal from '../Components/SidebarMinimal';
 import { Outlet } from 'react-router-dom';
 import NavBarMinimal from '../Components/NavBarMinimal';
+import { useNavigate } from 'react-router-dom';
 
 const MainLayout = () => {
 
@@ -15,17 +16,25 @@ const MainLayout = () => {
     // const user = localStorage.getItem('userDetails');
 
     const { loggedIn, user } = useUserContext();
+    const navigate = useNavigate();
 
     const getSelectedTab = (tabName: string) => {
-        //console.log(tabName);
+        console.log(tabName);
         setCurrentTab(tabName);
     }
 
     useEffect(() => {
         console.log(loggedIn, user);
-        if (loggedIn) setCurrentTab("Home");
-        else setCurrentTab("Login");
-    })
+        if (loggedIn) {
+            setCurrentTab("Home");
+            navigate('/home');
+        }
+        else {
+            // console.log("Not logged in");
+            setCurrentTab("Login");
+            navigate('/login');
+        }
+    }, [])
 
     return (
         <div className="App bg-[#222831] h-[102vh] w-full rounded-lg shadow-md">

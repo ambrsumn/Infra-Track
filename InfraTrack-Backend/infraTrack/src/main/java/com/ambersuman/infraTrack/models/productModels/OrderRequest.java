@@ -7,30 +7,33 @@ public class OrderRequest {
     private String projectName = "";
     private int orderedBy = 0;
     private String engineerComments = "";
+    private String orderDate;
 
     public OrderRequest(){}
 
-    public OrderRequest(String productName, String productQuantity, int orderedBy, String projectName) {
+    public OrderRequest(String productName, String productQuantity, int orderedBy, String projectName, String orderDate) {
         this.productName = productName;
         this.productQuantity = productQuantity;
         this.projectName = projectName;
         this.orderedBy = orderedBy;
+        this.orderDate = orderDate;
     }
 
-    public OrderRequest(String productName, String productQuantity, int orderedBy, String projectName, String engineerComments) {
+    public OrderRequest(String productName, String productQuantity, int orderedBy, String projectName, String orderDate, String engineerComments) {
         this.productName = productName;
         this.productQuantity = productQuantity;
         this.projectName = projectName;
         this.orderedBy = orderedBy;
         this.engineerComments = engineerComments;
+        this.orderDate = orderDate;
     }
 
-    public int getOrderedBy() {
-        return orderedBy;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setOrderedBy(int orderedBy) {
-        this.orderedBy = orderedBy;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getProductQuantity() {
@@ -41,12 +44,20 @@ public class OrderRequest {
         this.productQuantity = productQuantity;
     }
 
-    public String getprojectName() {
+    public String getProjectName() {
         return projectName;
     }
 
-    public void setprojectName(String projectName) {
+    public void setProjectName(String projectName) {
         this.projectName = projectName;
+    }
+
+    public int getOrderedBy() {
+        return orderedBy;
+    }
+
+    public void setOrderedBy(int orderedBy) {
+        this.orderedBy = orderedBy;
     }
 
     public String getEngineerComments() {
@@ -57,11 +68,11 @@ public class OrderRequest {
         this.engineerComments = engineerComments;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getOrderDate() {
+        return orderDate;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
     }
 }

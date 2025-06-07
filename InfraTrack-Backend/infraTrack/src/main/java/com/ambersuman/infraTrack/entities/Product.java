@@ -44,25 +44,38 @@ public class Product {
     @Column(name="last_modified_by")
     private int lastModifiedBy;
 
+    @Column(name="order_date")
+    private String orderDate;
+
     @Lob
     @Column(name="quotations")
     private byte[] quotations;
 
     public Product() {}
 
-    public Product(String productName, String requestedQuantity, int orderedBy, String projectName) {
+    public Product(String productName, String requestedQuantity, int orderedBy, String projectName, String orderDate) {
         this.productName = productName;
         this.requestedQuantity = requestedQuantity;
         this.orderedBy = orderedBy;
         this.projectName = projectName;
+        this.orderDate = orderDate;
     }
 
-    public Product(String productName, String requestedQuantity, int orderedBy, String projectName, String customerRemarks) {
+    public Product(String productName, String requestedQuantity, int orderedBy, String projectName, String orderDate, String customerRemarks) {
         this.productName = productName;
         this.requestedQuantity = requestedQuantity;
         this.orderedBy = orderedBy;
         this.projectName = projectName;
         this.customerRemarks = customerRemarks;
+        this.orderDate = orderDate;
+    }
+
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
     }
 
     public int getLastModifiedBy() {

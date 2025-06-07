@@ -12,10 +12,6 @@ function Home() {
                 <p className=' text-5xl font-medium'>Welcome {user?.firstName}, to InfraTrack!</p>
 
                 <p className=' text-gray-400 text-2xl font-medium mt-6'>Place & Track all your needs at one place.</p>
-
-                <div className=' mt-32 pt-24  h-[60vh] '>
-                    <BuildingHome />
-                </div>
             </div>
         </div>
     )

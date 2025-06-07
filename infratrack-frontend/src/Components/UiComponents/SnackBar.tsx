@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 
@@ -6,9 +6,9 @@ function SnackBar({ message }: { message: string }) {
 
     const [open, setOpen] = React.useState(false);
 
-    const handleClick = () => {
+    useEffect(() => {
         setOpen(true);
-    };
+    }, [message])
 
     const handleClose = (
         event: React.SyntheticEvent | Event,
@@ -27,7 +27,8 @@ function SnackBar({ message }: { message: string }) {
                 open={open}
                 autoHideDuration={5000}
                 onClose={handleClose}
-                message={message || 'hihhih'}
+                message={message}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
             />
         </div>
     );
