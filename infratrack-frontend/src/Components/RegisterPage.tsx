@@ -94,7 +94,7 @@ function RegisterPage() {
         <>
             {
                 !loader &&
-                <div className=' w-[60%] h-[85%] mx-auto mt-24 px-6 py-4 rounded-3xl shadow-md bg-[#212529] text-white'>
+                <div className=' w-[60%] h-full mx-auto px-6 py-4 rounded-3xl shadow-md bg-[#212529] text-white'>
                     <p className=' text-2xl mb-12 italic text-blue-500'>New User? Create Free Account</p>
 
                     <div className=' flex flex-row justify-between'>

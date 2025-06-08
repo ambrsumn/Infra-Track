@@ -2,7 +2,8 @@ import axios from "axios";
 import { config } from "process";
 
 const ApiMiddleware = axios.create({
-    baseURL: "http://localhost:8080/infratrack/api/",
+    // baseURL: "http://localhost:8080/infratrack/api/",
+    baseURL: "https://infra-track-8.onrender.com/infratrack/api/"
 });
 
 
