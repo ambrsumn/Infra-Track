@@ -6,6 +6,7 @@ import com.ambersuman.infraTrack.models.GlobalResponse;
 import com.ambersuman.infraTrack.models.productModels.ProductUpdateDTO;
 import com.ambersuman.infraTrack.repository.ProductRepository;
 import com.ambersuman.infraTrack.repository.UserRepository;
+import com.ambersuman.infraTrack.utils.DateUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,9 +147,21 @@ public class CommonService {
         }
 
         if (request.getQuotations() != null && !request.getQuotations().isEmpty()) {
+            System.out.println("YESSSS");
             product.setQuotations(request.getQuotations().getBytes());
         }
 
+        User customer = userRepository.findById(request.getLastModifiedBy()).orElseThrow(()-> new Exception("User Not Found"));
+
+
+        String currStatus = product.getTracker();
+        String currentDate = DateUtil.getCurrentDateInIST();
+
+
+        String newStatus = currStatus +  ", " + request.getStatus() + " -> "  + customer.getFirstName() +
+                " ( " + customer.getRoleName() + " ) on " + currentDate;
+
+        product.setTracker(newStatus);
         productRepository.save(product);
 
         GlobalResponse res = new GlobalResponse("Order Details Updated", System.currentTimeMillis(),

@@ -1,8 +1,6 @@
 package com.ambersuman.infraTrack.controllers;
 
-import com.ambersuman.infraTrack.models.productModels.DirectorUpdateOrderDetails;
 import com.ambersuman.infraTrack.models.productModels.ProductUpdateDTO;
-import com.ambersuman.infraTrack.models.productModels.StoreUpdateOrderDetails;
 import com.ambersuman.infraTrack.services.CommonService;
 import com.ambersuman.infraTrack.services.DirectorService;
 import org.springframework.http.ResponseEntity;
@@ -37,12 +35,6 @@ public class DirectorController {
     public ResponseEntity viewOrdersByName(@PathVariable String name) throws Exception
     {
         return commonService.viewOrdersBy(name);
-    }
-
-    @PostMapping("/update-order")
-    public ResponseEntity updateOrder(@RequestBody DirectorUpdateOrderDetails request)
-    {
-        return directorService.updateOrder(request);
     }
 
     @GetMapping("view-order/{id}")

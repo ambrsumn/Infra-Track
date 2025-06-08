@@ -18,7 +18,7 @@ public class Product {
     private String requestedQuantity;
 
     @Column(name="finalized_quantity")
-    private Integer finalizedQuantity;
+    private String finalizedQuantity;
 
     @Column(name="ordered_by")
     private int orderedBy;
@@ -50,6 +50,9 @@ public class Product {
     @Column(name="customer_name")
     private String customerName;
 
+    @Column(name="process_tracking")
+    private String tracker;
+
     @Lob
     @Column(name="quotations")
     private byte[] quotations;
@@ -73,6 +76,14 @@ public class Product {
         this.customerName = customerName;
         this.customerRemarks = customerRemarks;
         this.orderDate = orderDate;
+    }
+
+    public String getTracker() {
+        return tracker;
+    }
+
+    public void setTracker(String tracker) {
+        this.tracker = tracker;
     }
 
     public String getCustomerName() {
@@ -123,11 +134,11 @@ public class Product {
         this.requestedQuantity = requestedQuantity;
     }
 
-    public Integer getFinalizedQuantity() {
+    public String getFinalizedQuantity() {
         return finalizedQuantity;
     }
 
-    public void setFinalizedQuantity(Integer finalizedQuantity) {
+    public void setFinalizedQuantity(String finalizedQuantity) {
         this.finalizedQuantity = finalizedQuantity;
     }
 

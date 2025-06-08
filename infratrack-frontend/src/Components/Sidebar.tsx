@@ -11,7 +11,7 @@ function Sidebar({ getSelectedTab }: any) {
 
     const [selectedTab, setSelectedTab] = useState("Home");
 
-    const { saveUser, setLoggedIn, saveToken } = useUserContext();
+    const { saveUser, setLoggedIn, saveToken, user } = useUserContext();
 
     const selectTab = (tabName: string) => {
         console.log(tabName);
@@ -44,10 +44,18 @@ function Sidebar({ getSelectedTab }: any) {
                         <p className=' text-white text-2xl font-medium'>Orders</p>
                     </div>
 
+                    {user?.roleName === 'Store Incharge' &&
+                        <div onSelect={() => selectTab('Store')} className={` hover:cursor-pointer flex flex-row gap-x-6 w-[60%] ${selectedTab === "Store" ? 'bg-gray-700' : ''} rounded-full px-4 py-2`} onClick={() => selectTab("Store")}>
+                            <FontAwesomeIcon icon={faGear} className=' text-white text-2xl' />
+                            <p className=' text-white text-2xl font-medium'>Store</p>
+                        </div>}
+
                     <div onSelect={() => selectTab('Settings')} className={` hover:cursor-pointer flex flex-row gap-x-6 w-[60%] ${selectedTab === "Settings" ? 'bg-gray-700' : ''} rounded-full px-4 py-2`} onClick={() => selectTab("Settings")}>
                         <FontAwesomeIcon icon={faGear} className=' text-white text-2xl' />
                         <p className=' text-white text-2xl font-medium'>Settings</p>
                     </div>
+
+
 
                     <div onSelect={() => Logout()} className={` hover:cursor-pointer flex flex-row gap-x-6 w-[60%] ${selectedTab === "Logout" ? 'bg-gray-700' : ''} rounded-full px-4 py-2`} onClick={() => Logout()}>
                         <FontAwesomeIcon icon={faRightFromBracket} className=' text-white text-2xl' />

@@ -86,7 +86,7 @@ function OrderPage() {
       setLoading(true);
       await ApiMiddleware.delete(`${user.roleName.split(' ')[0].toLowerCase()}/delete-order/${orderId}`).then((res: any) => {
         console.log(res);
-        rows.splice(rows.findIndex((row: any) => row.orderId === orderId), 1);
+        rows.splice(rows.findIndex((row: any) => row.id === orderId), 1);
         alert('Order deleted successfully');
         setRows(rows.filter((row: any) => row.orderId !== orderId));
       }).catch((err: any) => {
@@ -183,9 +183,17 @@ function OrderPage() {
                             <TableCell sx={{ color: '#e2e8f0', fontSize: '1.3rem' }}>{row.orderDate}</TableCell>
                             <TableCell sx={{ color: '#e2e8f0', fontSize: '1.3rem' }}>{row.status || 'Pending'}</TableCell>
 
-                            {user?.roleName === 'Engineer' && <TableCell onClick={() => { deleteOrder(row.id) }} sx={{ backgroundColor: '#0f172a', '&:hover': { color: 'red', cursor: 'pointer' }, color: '#E55050', fontSize: '1.3rem', textAlign: 'left' }}><FontAwesomeIcon icon={faTrash} /></TableCell>}
-
-                            {user?.roleName !== 'Engineer' && <TableCell onClick={() => { viewOrder(row.id) }} > <span className=' text-blue-600 font-semibold underline hover:text-red-500 hover:cursor-pointer text-xl'>View</span> </TableCell>}
+                            <TableCell sx={{ backgroundColor: '#0f172a', fontSize: '1.3rem', textAlign: 'left' }}>
+                              {user?.roleName === 'Engineer' ? (
+                                <>
+                                  <span onClick={() => { viewOrder(row.id) }} className="text-blue-600 font-semibold underline hover:text-red-500 hover:cursor-pointer text-xl mr-4">View</span>
+                                  <FontAwesomeIcon onClick={() => { deleteOrder(row.id) }} icon={faTrash} className="text-red-500 hover:cursor-pointer hover:text-red-700" />
+                                </>
+                              ) : (
+                                <span onClick={() => { viewOrder(row.id) }} className="text-blue-600 font-semibold underline hover:text-red-500 hover:cursor-pointer text-xl">View</span>
+                              )}
+                            </TableCell>
+                            {/* {user?.roleName !== 'Engineer' && <TableCell onClick={() => { viewOrder(row.id) }} > <span className=' text-blue-600 font-semibold underline hover:text-red-500 hover:cursor-pointer text-xl'>View</span> </TableCell>}  */}
 
 
                           </TableRow>

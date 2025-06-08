@@ -8,7 +8,7 @@ public class ProductUpdateDTO {
     private int id;
     private String productName;
     private String requestedQuantity;
-    private Integer finalizedQuantity;
+    private String finalizedQuantity;
     private int orderedBy;
     private String status;
     private String storeRemarks;
@@ -47,11 +47,11 @@ public class ProductUpdateDTO {
         this.requestedQuantity = requestedQuantity;
     }
 
-    public Integer getFinalizedQuantity() {
+    public String getFinalizedQuantity() {
         return finalizedQuantity;
     }
 
-    public void setFinalizedQuantity(Integer finalizedQuantity) {
+    public void setFinalizedQuantity(String finalizedQuantity) {
         this.finalizedQuantity = finalizedQuantity;
     }
 

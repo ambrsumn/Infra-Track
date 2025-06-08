@@ -7,6 +7,7 @@ import com.ambersuman.infraTrack.models.GlobalResponse;
 import com.ambersuman.infraTrack.models.productModels.OrderRequest;
 import com.ambersuman.infraTrack.repository.ProductRepository;
 import com.ambersuman.infraTrack.repository.UserRepository;
+import com.ambersuman.infraTrack.utils.DateUtil;
 import com.ambersuman.infraTrack.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -63,6 +64,10 @@ public class EngineerService {
         }
         newProduct.setLastModifiedBy(request.getOrderedBy());
         newProduct.setStatus("Pending");
+        String currentDate = DateUtil.getCurrentDateInIST();
+        String status = "Order Placed -> " + customer.getFirstName() +
+                " ( " + customer.getRoleName() + " ) on " + currentDate;
+        newProduct.setTracker(status);
 
         productRepository.save(newProduct);
         GlobalResponse response = new GlobalResponse("Order Placed", System.currentTimeMillis(), 202);
@@ -73,6 +78,7 @@ public class EngineerService {
 
         try
         {
+            System.out.println();
             productRepository.deleteById(orderId);
             GlobalResponse response = new GlobalResponse("Order Deleted", System.currentTimeMillis(), 202);
             return ResponseEntity.ok(response);

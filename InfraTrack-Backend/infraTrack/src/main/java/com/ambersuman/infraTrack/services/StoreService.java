@@ -1,10 +1,8 @@
 package com.ambersuman.infraTrack.services;
 
-import com.ambersuman.infraTrack.entities.Product;
 import com.ambersuman.infraTrack.entities.Stocks;
 import com.ambersuman.infraTrack.models.GlobalResponse;
 import com.ambersuman.infraTrack.models.productModels.AddStocksRequest;
-import com.ambersuman.infraTrack.models.productModels.StoreUpdateOrderDetails;
 import com.ambersuman.infraTrack.repository.ProductRepository;
 import com.ambersuman.infraTrack.repository.StocksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,31 +80,5 @@ public class StoreService {
 
     }
 
-    public ResponseEntity updateOrder(StoreUpdateOrderDetails request) {
 
-        try
-        {
-            Optional<Product> finder = productRepository.findById(request.getId());
-            Product selectedProduct = finder.get();
-            if(request.getStatus() != "")selectedProduct.setStatus(request.getStatus());
-            if (request.getFinalizedQuantity() != null && request.getFinalizedQuantity() >= 0) {
-                selectedProduct.setFinalizedQuantity(request.getFinalizedQuantity());
-            }
-            if(request.getStoreRemarks() != "")selectedProduct.setStoreRemarks(request.getStoreRemarks());
-
-            productRepository.save(selectedProduct);
-
-            GlobalResponse response = new GlobalResponse("Updated Order Details",
-                    System.currentTimeMillis(), 202);
-            return ResponseEntity.ok(response);
-
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            GlobalResponse response = new GlobalResponse("Something Went Wrong, Try Again Later",
-                    System.currentTimeMillis(), HttpStatus.INTERNAL_SERVER_ERROR.value());
-            return ResponseEntity.internalServerError().body(response);
-        }
-    }
 }

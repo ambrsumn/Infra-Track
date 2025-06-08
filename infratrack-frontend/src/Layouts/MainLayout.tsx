@@ -37,7 +37,7 @@ const MainLayout = () => {
     }, [])
 
     return (
-        <div className="App bg-[#222831] h-[102vh] w-full rounded-lg shadow-md">
+        <div className="App bg-[#222831] h-[100vh] w-full rounded-lg shadow-md">
 
             {/* NAVBAR */}
             {
@@ -50,7 +50,7 @@ const MainLayout = () => {
 
             {/* MAIN  */}
 
-            <div className=' flex flex-row h-[92vh] w-full'>
+            <div className=' flex flex-row h-[90vh] w-full'>
                 {/* SIDEBAR  */}
                 {
                     loggedIn &&

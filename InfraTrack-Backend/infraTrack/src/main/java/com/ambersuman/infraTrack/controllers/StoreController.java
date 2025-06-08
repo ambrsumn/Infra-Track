@@ -2,7 +2,6 @@ package com.ambersuman.infraTrack.controllers;
 
 import com.ambersuman.infraTrack.models.productModels.AddStocksRequest;
 import com.ambersuman.infraTrack.models.productModels.ProductUpdateDTO;
-import com.ambersuman.infraTrack.models.productModels.StoreUpdateOrderDetails;
 import com.ambersuman.infraTrack.services.CommonService;
 import com.ambersuman.infraTrack.services.StoreService;
 import org.springframework.http.ResponseEntity;
@@ -51,12 +50,6 @@ public class StoreController {
     public ResponseEntity checkForProduct(@PathVariable String productName)
     {
         return storeService.checkForProduct(productName);
-    }
-
-    @PostMapping("/update-order")
-    public ResponseEntity updateOrder(@RequestBody StoreUpdateOrderDetails request)
-    {
-        return storeService.updateOrder(request);
     }
 
     @GetMapping("view-order/{id}")

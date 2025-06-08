@@ -7,6 +7,7 @@ import LoginPage from "./Components/LoginPage";
 import RegisterPage from "./Components/RegisterPage";
 import PlaceOrderPage from "./Components/PlaceOrderPage";
 import OrderDetailsPage from "./Components/OrderDetailsPage";
+import StorePage from "./Components/StorePage";
 
 const router = createBrowserRouter([
     {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
             {
                 path: '/order-details/:orderId',
                 element: <OrderDetailsPage />
+            },
+            {
+                path: '/store',
+                element: <StorePage />
             }
 
         ]

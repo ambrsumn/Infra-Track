@@ -32,7 +32,7 @@ function NavBar() {
                             <img
                                 src={`data:image/jpeg;base64,${user.profileImage}`}
                                 alt="user profile picture"
-                                className="w-20 h-20 rounded-full"
+                                className="w-16 h-16 rounded-full"
                             />}
                     </div>
                 </div>
