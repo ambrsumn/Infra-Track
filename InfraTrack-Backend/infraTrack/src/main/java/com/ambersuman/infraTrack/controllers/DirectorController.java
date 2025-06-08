@@ -1,6 +1,7 @@
 package com.ambersuman.infraTrack.controllers;
 
 import com.ambersuman.infraTrack.models.productModels.DirectorUpdateOrderDetails;
+import com.ambersuman.infraTrack.models.productModels.ProductUpdateDTO;
 import com.ambersuman.infraTrack.models.productModels.StoreUpdateOrderDetails;
 import com.ambersuman.infraTrack.services.CommonService;
 import com.ambersuman.infraTrack.services.DirectorService;
@@ -20,6 +21,12 @@ public class DirectorController {
         this.directorService = directorService;
     }
 
+    @GetMapping("/test")
+    public String Test()
+    {
+        return "Hi from Engineer Controller";
+    }
+    
     @GetMapping("/view-orders")
     public ResponseEntity viewAllOrders()
     {
@@ -27,7 +34,7 @@ public class DirectorController {
     }
 
     @GetMapping("/view-orders-by/{name}")
-    public ResponseEntity viewOrdersByName(@PathVariable String name)
+    public ResponseEntity viewOrdersByName(@PathVariable String name) throws Exception
     {
         return commonService.viewOrdersBy(name);
     }
@@ -37,4 +44,18 @@ public class DirectorController {
     {
         return directorService.updateOrder(request);
     }
+
+    @GetMapping("view-order/{id}")
+    public ResponseEntity viewOrderById(@PathVariable int id) throws Exception
+    {
+        return commonService.viewOrderById(id);
+    }
+
+    @PutMapping("/update-order")
+    public ResponseEntity updateOrder(@ModelAttribute ProductUpdateDTO request) throws Exception
+    {
+        return commonService.updateOrder(request);
+    }
+
+
 }

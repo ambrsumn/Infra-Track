@@ -1,6 +1,7 @@
 package com.ambersuman.infraTrack.controllers;
 
 import com.ambersuman.infraTrack.models.productModels.AddStocksRequest;
+import com.ambersuman.infraTrack.models.productModels.ProductUpdateDTO;
 import com.ambersuman.infraTrack.models.productModels.StoreUpdateOrderDetails;
 import com.ambersuman.infraTrack.services.CommonService;
 import com.ambersuman.infraTrack.services.StoreService;
@@ -20,6 +21,12 @@ public class StoreController {
         this.storeService = storeService;
     }
 
+    @GetMapping("/test")
+    public String Test()
+    {
+        return "Hi from Engineer Controller";
+    }
+
     @GetMapping("/view-orders")
     public ResponseEntity viewAllOrders()
     {
@@ -27,8 +34,9 @@ public class StoreController {
     }
 
     @GetMapping("/view-orders-by/{name}")
-    public ResponseEntity viewOrdersByName(@PathVariable String name)
+    public ResponseEntity viewOrdersByName(@PathVariable String name) throws Exception
     {
+//        System.out.println(name);
         return commonService.viewOrdersBy(name);
     }
 
@@ -49,5 +57,17 @@ public class StoreController {
     public ResponseEntity updateOrder(@RequestBody StoreUpdateOrderDetails request)
     {
         return storeService.updateOrder(request);
+    }
+
+    @GetMapping("view-order/{id}")
+    public ResponseEntity viewOrderById(@PathVariable int id) throws Exception
+    {
+        return commonService.viewOrderById(id);
+    }
+
+    @PutMapping("/update-order")
+    public ResponseEntity updateOrder(@ModelAttribute ProductUpdateDTO request) throws Exception
+    {
+        return commonService.updateOrder(request);
     }
 }

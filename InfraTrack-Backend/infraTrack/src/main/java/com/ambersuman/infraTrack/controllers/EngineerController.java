@@ -2,6 +2,7 @@ package com.ambersuman.infraTrack.controllers;
 
 import com.ambersuman.infraTrack.models.GlobalResponse;
 import com.ambersuman.infraTrack.models.productModels.OrderRequest;
+import com.ambersuman.infraTrack.models.productModels.ProductUpdateDTO;
 import com.ambersuman.infraTrack.services.EngineerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class EngineerController {
     }
 
     @PostMapping("/place-order")
-    public ResponseEntity placeOrder(@RequestBody OrderRequest request)
+    public ResponseEntity placeOrder(@RequestBody OrderRequest request) throws Exception
     {
         return this.engineerService.placeOrder(request);
     }

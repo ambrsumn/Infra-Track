@@ -2,9 +2,11 @@ package com.ambersuman.infraTrack.services;
 
 import com.ambersuman.infraTrack.config.SecurityConfig;
 import com.ambersuman.infraTrack.entities.Product;
+import com.ambersuman.infraTrack.entities.User;
 import com.ambersuman.infraTrack.models.GlobalResponse;
 import com.ambersuman.infraTrack.models.productModels.OrderRequest;
 import com.ambersuman.infraTrack.repository.ProductRepository;
+import com.ambersuman.infraTrack.repository.UserRepository;
 import com.ambersuman.infraTrack.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,19 +22,18 @@ import java.util.Optional;
 public class EngineerService {
 
     private ProductRepository productRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public EngineerService(ProductRepository productRepository)
+    public EngineerService(ProductRepository productRepository, UserRepository userRepository)
     {
         this.productRepository = productRepository;
+        this.userRepository = userRepository;
     }
 
-    public ResponseEntity placeOrder(OrderRequest request)
+    public ResponseEntity placeOrder(OrderRequest request) throws Exception
     {
         Product newProduct;
-
-//        System.out.println(request.getProductName() + " " + request.getOrderedBy() + " " +
-//                request.getProductQuantity() + " " + request.getProjectName());
 
         if(request.getProductName() == "" ||
                 request.getProductQuantity() == "" ||
@@ -45,33 +46,27 @@ public class EngineerService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(response);
         }
 
+        User customer = userRepository.findById(request.getOrderedBy()).orElseThrow(()-> new Exception("User Not Found"));
+
         if(request.getEngineerComments() == "")
         {
             newProduct = new Product(request.getProductName(),
-                    request.getProductQuantity(), request.getOrderedBy(), request.getProjectName(), request.getOrderDate());
+                    request.getProductQuantity(), request.getOrderedBy(), request.getProjectName(), request.getOrderDate(), customer.getFirstName() + " " + customer.getLastName());
 
-            newProduct.setLastModifiedBy(request.getOrderedBy());
         }
         else
         {
             newProduct = new Product(request.getProductName(), request.getProductQuantity(),
-                    request.getOrderedBy(), request.getProjectName(), request.getOrderDate(), request.getEngineerComments());
+                    request.getOrderedBy(), request.getProjectName(), request.getOrderDate(), request.getEngineerComments(), customer.getFirstName() + " " + customer.getLastName());
 
-            newProduct.setLastModifiedBy(request.getOrderedBy());
 
         }
+        newProduct.setLastModifiedBy(request.getOrderedBy());
+        newProduct.setStatus("Pending");
 
-        try
-        {
-            productRepository.save(newProduct);
-            GlobalResponse response = new GlobalResponse("Order Placed", System.currentTimeMillis(), 202);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            GlobalResponse response = new GlobalResponse("Internal Server Error",
-                    System.currentTimeMillis(), 500);
-
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(response);
-        }
+        productRepository.save(newProduct);
+        GlobalResponse response = new GlobalResponse("Order Placed", System.currentTimeMillis(), 202);
+        return ResponseEntity.ok(response);
     }
 
     public ResponseEntity deleteOrder(int orderId) {

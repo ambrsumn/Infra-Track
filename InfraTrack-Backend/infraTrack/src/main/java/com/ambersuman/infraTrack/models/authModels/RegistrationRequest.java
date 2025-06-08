@@ -12,7 +12,7 @@ public class RegistrationRequest {
     String securityCode;
     String accountPassword;
     String companyName;
-    MultipartFile profileImage;
+    MultipartFile profileImage = null;
 //    MultipartFile
 
     public RegistrationRequest(){}

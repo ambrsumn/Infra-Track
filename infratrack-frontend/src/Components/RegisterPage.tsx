@@ -69,20 +69,14 @@ function RegisterPage() {
         registrationData.append('companyName', company);
         registrationData.append('accountPassword', password);
         registrationData.append('securityCode', securityKey);
-        registrationData.append('profileImage', imageFile || '');
+        if (imageFile !== null) registrationData.append('profileImage', imageFile);
 
         console.log("FormData : ", registrationData);
 
         try {
             const res: any = await ApiMiddleware.post('/auth/register', registrationData);
             console.log("Response : ", res);
-            setSnackBarMessage(res.data.message);
-            setSnackBar(true);
-
-
-            // setTimeout(() => {
-            //     getSelectedTab('Login');
-            // }, 5000);
+            alert("Registration Successful, you may login now");
 
         }
         catch (error: any) {
@@ -322,8 +316,6 @@ function RegisterPage() {
                 loader &&
                 <LoaderSpinner />
             }
-            {snackBar &&
-                <SnackBar message={snackBarMessage} />}
         </>
     )
 }

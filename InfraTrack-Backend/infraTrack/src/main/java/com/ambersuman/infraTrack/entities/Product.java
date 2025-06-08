@@ -47,27 +47,40 @@ public class Product {
     @Column(name="order_date")
     private String orderDate;
 
+    @Column(name="customer_name")
+    private String customerName;
+
     @Lob
     @Column(name="quotations")
     private byte[] quotations;
 
     public Product() {}
 
-    public Product(String productName, String requestedQuantity, int orderedBy, String projectName, String orderDate) {
+    public Product(String productName, String requestedQuantity, int orderedBy, String projectName, String orderDate, String customerName) {
         this.productName = productName;
         this.requestedQuantity = requestedQuantity;
         this.orderedBy = orderedBy;
         this.projectName = projectName;
+        this.customerName = customerName;
         this.orderDate = orderDate;
     }
 
-    public Product(String productName, String requestedQuantity, int orderedBy, String projectName, String orderDate, String customerRemarks) {
+    public Product(String productName, String requestedQuantity, int orderedBy, String projectName, String orderDate, String customerRemarks, String customerName) {
         this.productName = productName;
         this.requestedQuantity = requestedQuantity;
         this.orderedBy = orderedBy;
         this.projectName = projectName;
+        this.customerName = customerName;
         this.customerRemarks = customerRemarks;
         this.orderDate = orderDate;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public String getOrderDate() {

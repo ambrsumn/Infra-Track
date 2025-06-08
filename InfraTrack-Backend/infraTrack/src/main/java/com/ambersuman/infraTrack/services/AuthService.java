@@ -85,161 +85,71 @@ public class AuthService {
 //        return new AuthResponse("", "Email Id or password provided is incorrect");
     }
 
-    public GlobalResponse register(RegistrationRequest request)
+    public ResponseEntity register(RegistrationRequest request) throws Exception
     {
         String encodedPassWord = passwordEncoder.encode(request.getAccountPassword());
-//        System.out.println("encoded password" +  encodedPassWord);
         byte[] imageBytes = null;
 
-        try
+        if(request.getProfileImage() != null)
         {
-            if(request.getProfileImage() != null)
-            {
-                imageBytes = request.getProfileImage().getBytes();
-            }
-        }
-        catch(IOException e)
-        {
-            System.out.println(e);
+            imageBytes = request.getProfileImage().getBytes();
         }
 
-//        User newUser = new User(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPhone(), request.getRoleName(), request.getSecurityCode(), encodedPassWord);
         User newUser = new User(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPhone(), request.getRoleName(), request.getSecurityCode(), encodedPassWord, request.getCompanyName(), imageBytes);
 
         System.out.println(newUser.toString());
 
-        try
-        {
-            User savedUser = userRepository.save(newUser);
-//            System.out.println(savedUser.getId());
-//            System.out.println("no error");
-        }
-        catch (DataIntegrityViolationException e)
-        {
-//            System.out.println("DUPLICATEEEEEEEEE");
-//            System.out.println("Duplicatee entry" + e.getMessage());
-            return new GlobalResponse("An Account Already Exists With This Email",
-                    System.currentTimeMillis(),
-                    HttpStatus.INTERNAL_SERVER_ERROR.value());
-        }
-        catch (Exception e)
-        {
-//            System.out.println("OTHEEEEEEEEE");
-
-            System.out.println("Other Exception" + e.getMessage());
-            return new GlobalResponse("Registration Failed, please try later",
-                    System.currentTimeMillis(),
-                    HttpStatus.INTERNAL_SERVER_ERROR.value());
-        }
+        User savedUser = userRepository.save(newUser);
 
 
-        return new GlobalResponse("Registration Completed, please login to continue",
+        GlobalResponse res = new GlobalResponse("Registration Completed, please login to continue",
                 System.currentTimeMillis(),
                 202);
+
+        return ResponseEntity.ok(res);
     }
 
-    public GlobalResponse resetPassword(PasswordChangeRequest request) {
+    public ResponseEntity resetPassword(PasswordChangeRequest request) throws Exception {
 
         GlobalResponse response;
-        try
-        {
-            Optional<User> requestedUser = userRepository.findByEmail(request.getEmail());
-            if(requestedUser.isEmpty())
-            {
-                response = new GlobalResponse("Incorrect Email",
-                        System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value());
-                return response;
-            }
 
-            User verifiedUser = requestedUser.get();
-            if(!verifiedUser.getSecurityCode().equals(request.getSecurityCode()))
-            {
-                response = new GlobalResponse("Incorrect Security Code",
-                        System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value());
-                return response;
-            }
+        User requestedUser = userRepository.findByEmail(request.getEmail()).orElseThrow(()->new Exception("User Not Found"));
+        if(!requestedUser.getSecurityCode().equals(request.getSecurityCode())) throw new Exception("Incorrect Security Code");
 
-//            try
-//            {
-                String encodedPassword = passwordEncoder.encode(request.getPassword());
-                verifiedUser.setAccountPassword(encodedPassword);
-                userRepository.save(verifiedUser);
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+        requestedUser.setAccountPassword(encodedPassword);
+        userRepository.save(requestedUser);
 
-
-
-//            }
-//            catch (Exception e)
-//            {
-//                response = new GlobalResponse("Something went wrong, please try later",
-//                        System.currentTimeMillis(), HttpStatus.INTERNAL_SERVER_ERROR.value());
-//                return response;
-//            }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            response = new GlobalResponse("Something Went Wrong!",
-                    System.currentTimeMillis(), HttpStatus.INTERNAL_SERVER_ERROR.value());
-            return response;
-        }
 
         response = new GlobalResponse("Password Changed!, Login to continue",
                 System.currentTimeMillis(), 200);
-        return response;
-//        return new GlobalResponse("hi", System.currentTimeMillis(), 202);
+
+        return ResponseEntity.ok(response);
     }
 
-    public GlobalResponse updateProfile(RegistrationRequest request) {
+    public ResponseEntity updateProfile(RegistrationRequest request) throws Exception {
 
-        System.out.println(request.getProfileImage());
-        System.out.println(request.getPhone());
-        System.out.println(request.getFirstName());
-        System.out.println(request.getProfileImage());
+        User foundUser = userRepository.findByFirstName(request.getFirstName()).orElseThrow(()-> new Exception("User Not Found"));
 
 
+        if(foundUser.getPhone() != request.getPhone())foundUser.setPhone(request.getPhone());
+        if(foundUser.getEmail() != request.getEmail())foundUser.setEmail(request.getEmail());
+        if(foundUser.getRoleName() != request.getRoleName())foundUser.setRoleName(request.getRoleName());
 
-        try
+        if(request.getProfileImage() != null)
         {
-            Optional<User> finder = userRepository.findByFirstName(request.getFirstName());
-            User foundUser = finder.get();
-
-            System.out.println(foundUser.getPhone());
-
-            if(foundUser.getPhone() != request.getPhone())foundUser.setPhone(request.getPhone());
-            if(foundUser.getEmail() != request.getEmail())foundUser.setEmail(request.getEmail());
-            if(foundUser.getRoleName() != request.getRoleName())foundUser.setRoleName(request.getRoleName());
-
-            if(request.getProfileImage() != null)
-            {
-                System.out.println("YES");
-                byte[] imageBytes = request.getProfileImage().getBytes();
-                foundUser.setProfileImage(imageBytes);
-            }
-
-            try
-            {
-                System.out.println("YESS");
-                User savedUser = userRepository.save(foundUser);
-                System.out.println(savedUser.getId());
-                System.out.println("no error");
-                GlobalResponse res = new GlobalResponse("Profile Updated SucessFully", System.currentTimeMillis(), 202);
-                return res;
-
-            }
-            catch (Exception e) {
-                System.out.println(e.getMessage());
-                GlobalResponse res = new GlobalResponse(e.getMessage(), System.currentTimeMillis(), 500);
-                return res;
-            }
-
-
+            System.out.println("YES");
+            byte[] imageBytes = request.getProfileImage().getBytes();
+            foundUser.setProfileImage(imageBytes);
         }
-        catch(Exception e)
-        {
-            System.out.println("236 " +  e.getMessage());
 
-            GlobalResponse res = new GlobalResponse(e.getMessage(), System.currentTimeMillis(), 500);
-            return res;
-        }
+        User savedUser = userRepository.save(foundUser);
+        System.out.println(savedUser.getId());
+//        System.out.println("no error");
+        GlobalResponse res = new GlobalResponse("Profile Updated SucessFully", System.currentTimeMillis(), 202);
+//        System.out.println(res.getMessage());
+//        System.out.println(res.getStatus());
+
+        return ResponseEntity.ok().body(res);
     }
 }

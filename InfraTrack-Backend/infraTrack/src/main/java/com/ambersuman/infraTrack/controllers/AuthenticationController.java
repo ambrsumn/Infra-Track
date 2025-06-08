@@ -30,18 +30,17 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public GlobalResponse login(@ModelAttribute RegistrationRequest request) {
+    public ResponseEntity register(@ModelAttribute RegistrationRequest request) throws Exception {
         return authService.register(request);
     }
 
     @PostMapping("/reset-password")
-    public GlobalResponse resetPassword(@RequestBody PasswordChangeRequest request)
-    {
+    public ResponseEntity resetPassword(@RequestBody PasswordChangeRequest request) throws Exception {
         return authService.resetPassword(request);
     }
 
     @PutMapping("/update-profile")
-    public GlobalResponse updateProfile(@ModelAttribute RegistrationRequest request)
+    public ResponseEntity updateProfile(@ModelAttribute RegistrationRequest request) throws Exception
     {
         return authService.updateProfile(request);
     }
