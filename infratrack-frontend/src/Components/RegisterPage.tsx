@@ -268,7 +268,7 @@ function RegisterPage() {
                             }}
                                 id="securityKey" label='Security Code' type='text' variant="outlined" onChange={(e) => { setSecurityKey(e.target.value) }} />
                             {
-                                securityKey?.trim() !== '' && <p className=' text-red-500 text-left pl-2'>Do not your security code with anyone</p>
+                                securityKey?.trim() !== '' && <p className=' text-red-500 text-left pl-2'>Do not share your security code with anyone</p>
                             }
                         </div>
 
