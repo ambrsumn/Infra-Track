@@ -21,7 +21,12 @@ function OrderDetailsPage() {
 
 
     useEffect(() => {
-        ApiMiddleware.get(`${user?.roleName.split(' ')[0].toLowerCase()}/view-order/${orderId}`)
+        getOrderDetails();
+    }, [user]);
+
+    const getOrderDetails = async () => {
+        setLoading(true);
+        await ApiMiddleware.get(`${user?.roleName.split(' ')[0].toLowerCase()}/view-order/${orderId}`)
             .then((res: any) => {
                 if (res?.data?.data[0]?.quotations) {
                     setImagePreviewUrl(`data:image/jpeg;base64,${res?.data?.data[0]?.quotations}`);
@@ -39,7 +44,7 @@ function OrderDetailsPage() {
             })
             .catch((err: any) => console.error(err))
             .finally(() => { setLoading(false); console.log(progressGraph) });
-    }, [user]);
+    }
 
 
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -104,7 +109,7 @@ function OrderDetailsPage() {
                     console.log(err);
                 }).
                 finally(() => {
-                    setLoading(false);
+                    getOrderDetails();
                 })
         }
 
