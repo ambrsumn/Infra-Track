@@ -40,8 +40,20 @@ function PlaceOrderPage() {
         });
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const isFormValid = () => {
+        if (formData.productName.trim() === '' ||
+            formData.productQuantity.trim() === '' ||
+            formData.projectName.trim() === '') {
+            alert('Please fill all the fields marked with *');
+            return;
+        }
+        else {
+            handleSubmit();
+        }
+    }
+
+    const handleSubmit = async () => {
+        // e.preventDefault();
 
         setLoading(true);
 
@@ -84,10 +96,10 @@ function PlaceOrderPage() {
                             PLACE ORDER
                         </Typography>
 
-                        <Box component="form" onSubmit={handleSubmit} noValidate>
+                        <Box >
                             <TextField
                                 fullWidth
-                                label="Product Name"
+                                label="Product Name *"
                                 name="productName"
                                 value={formData.productName}
                                 onChange={handleChange}
@@ -102,7 +114,7 @@ function PlaceOrderPage() {
 
                             <TextField
                                 fullWidth
-                                label="Quantity"
+                                label="Quantity *"
                                 name="productQuantity"
                                 value={formData.productQuantity}
                                 onChange={handleChange}
@@ -117,7 +129,7 @@ function PlaceOrderPage() {
 
                             <TextField
                                 fullWidth
-                                label="Project"
+                                label="Project *"
                                 name="projectName"
                                 value={formData.projectName}
                                 onChange={handleChange}
@@ -152,6 +164,7 @@ function PlaceOrderPage() {
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, bgcolor: '#3b82f6', ':hover': { bgcolor: '#2563eb' } }}
+                                onClick={() => { isFormValid() }}
                             >
                                 Place Order
                             </Button>
