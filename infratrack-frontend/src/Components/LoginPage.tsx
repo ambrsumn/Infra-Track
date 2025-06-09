@@ -30,6 +30,18 @@ function LoginPage() {
         }
     }
 
+    const enableLogin = () => {
+        if (email.trim() === '' || password.trim() === '') {
+            alert('Please enter email and password');
+            return;
+        }
+        else if (!email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
+            alert('Please enter a valid email address');
+            return;
+        }
+        else login();
+    }
+
     const login = async () => {
         setLoading(true);
 
@@ -56,6 +68,7 @@ function LoginPage() {
             }
         }).catch((err: any) => {
             console.log(err.response.data);
+            alert(err.response.data.message);
         }).finally(() => {
             setLoading(false);
         })
@@ -119,7 +132,7 @@ function LoginPage() {
                 <p className=' text-lg mt-8'>Forgot Password? <a className=' text-blue-500'>Click Here</a> </p>
 
                 <div className=' mt-12 flex flex-row justify-center'>
-                    <Button sx={{ fontSize: '1.3rem', borderRadius: '10px' }} onClick={() => { login() }} variant="contained">Login</Button>
+                    <Button sx={{ fontSize: '1.3rem', borderRadius: '10px' }} onClick={() => { enableLogin() }} variant="contained">Login</Button>
                 </div>
             </div>}
 

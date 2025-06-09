@@ -40,10 +40,22 @@ public class StoreController {
     }
 
     @PostMapping("/add-stock")
-    public ResponseEntity addStocks(@RequestBody AddStocksRequest request)
+    public ResponseEntity addStocks(@RequestBody AddStocksRequest request) throws Exception
     {
-        System.out.println(request);
+//        System.out.println(request);
         return storeService.addStocks(request);
+    }
+
+    @GetMapping("/view-stocks")
+    public ResponseEntity viewStocks() throws Exception
+    {
+        return storeService.viewStocks();
+    }
+
+    @DeleteMapping("/delete-stock/{id}")
+    public ResponseEntity deleteStock(@PathVariable int id) throws Exception
+    {
+        return storeService.deleteStock(id);
     }
 
     @GetMapping("/check-in-store/{productName}")

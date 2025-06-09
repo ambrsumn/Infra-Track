@@ -35,7 +35,7 @@ function Home() {
                             }
                         }
 
-                        setPendingOrders(rows.length - count);
+                        setPendingOrders(res?.data?.data?.length - count);
                         setCompletedOrders(count);
                     }
                     setLoading(false);

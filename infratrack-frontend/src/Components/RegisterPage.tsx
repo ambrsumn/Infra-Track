@@ -55,6 +55,26 @@ function RegisterPage() {
         }
     }
 
+    const enableSubmit = () => {
+        if (firstName.trim() === '' || lastName.trim() === '' || email.trim() === '' || phone.trim() === '' || designation === null || company.trim() === '' || password.trim() === '' || securityKey.trim() === '') {
+            alert('Please fill all the fields');
+            return;
+        }
+
+        else if (!phone.match(/^[6-9]\d{9}$/)) {
+            alert('Please enter a valid phone number');
+            return;
+        }
+        else if (!email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
+            alert('Please enter a valid email address');
+            return;
+        }
+        else {
+            // console.log('All fields are filled');
+            register();
+        }
+    }
+
     const register = async () => {
 
         setLoader(true);
@@ -81,8 +101,9 @@ function RegisterPage() {
         }
         catch (error: any) {
             console.log("Error : ", error);
-            setSnackBarMessage(error.data.message);
-            setSnackBar(true);
+            // setSnackBarMessage(error.data.message);
+            // setSnackBar(true);
+            alert("Registration Failed, please try again later");
         }
         finally {
             setLoader(false);
@@ -306,7 +327,7 @@ function RegisterPage() {
                     </div>
 
                     <div className=' mt-12 flex flex-row justify-center'>
-                        <Button sx={{ fontSize: '1.3rem', borderRadius: '10px' }} onClick={() => { register() }} variant="contained">Register</Button>
+                        <Button sx={{ fontSize: '1.3rem', borderRadius: '10px' }} onClick={() => { enableSubmit() }} variant="contained">Register</Button>
                     </div>
 
                 </div>

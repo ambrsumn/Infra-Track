@@ -28,26 +28,18 @@ public class StoreService {
         this.productRepository = productRepository;
     }
 
-    public ResponseEntity addStocks(AddStocksRequest request) {
+    public ResponseEntity addStocks(AddStocksRequest request) throws Exception {
 
-        try
-        {
-            System.out.println(request.getId() + " " + request.getProductName() + " " + request.getProductQuantity());
+
+//            System.out.println(request.getId() + " " + request.getProductName() + " " + request.getProductQuantity());
             Stocks newStock = new Stocks(request.getId(),
                     request.getProductName(), request.getProductQuantity());
 
             stocksRepository.save(newStock);
 
             GlobalResponse response = new GlobalResponse("Stock Saved To Database",
-                    System.currentTimeMillis(), 202);
+                    System.currentTimeMillis(), 200);
             return ResponseEntity.ok(response);
-        }
-        catch (Exception e)
-        {
-            GlobalResponse response = new GlobalResponse("Something Went Wrong, Try Again Later",
-                    System.currentTimeMillis(), HttpStatus.INTERNAL_SERVER_ERROR.value());
-            return ResponseEntity.internalServerError().body(response);
-        }
     }
 
     public ResponseEntity checkForProduct(String productName) {
@@ -81,4 +73,21 @@ public class StoreService {
     }
 
 
+    public ResponseEntity viewStocks() throws Exception{
+
+        List<Stocks> allStcoks = stocksRepository.findAll();
+
+        GlobalResponse res = new GlobalResponse("Available Stocks", System.currentTimeMillis(),
+                200, allStcoks);
+
+        return ResponseEntity.ok(res);
+
+    }
+
+    public ResponseEntity deleteStock(int id) throws Exception {
+
+        stocksRepository.deleteById(id);
+        GlobalResponse res = new GlobalResponse("Deleted Sucessfully", System.currentTimeMillis(), 200);
+        return ResponseEntity.ok(res);
+    }
 }
