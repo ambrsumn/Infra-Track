@@ -178,7 +178,7 @@ function OrderDetailsPage() {
                     <div className=" w-[60%] p-6 text-white bg-gray-900 h-[90vh] overflow-y-auto flex flex-col gap-6">
 
                         <div className=' flex flex-col gap-y-6 justify-center'>
-                            <h1 className="text-4xl font-bold">Order Details</h1>
+                            <h1 className="text-4xl  font-bold">Order Details</h1>
 
                             <div className=' flex flex-row gap-x-12 justify-center'>
                                 <button

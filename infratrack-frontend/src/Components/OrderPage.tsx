@@ -121,7 +121,7 @@ function OrderPage() {
       {!loading &&
         <div className='w-[85%] mx-auto py-4 text-white'>
           <div className='flex flex-row justify-between mb-4'>
-            <p className='text-5xl font-semibold text-white'>ORDERS</p>
+            <p className='text-5xl font-semibold animate-pulse text-emerald-300'>ORDERS</p>
             {user?.roleName === 'Engineer' && <button onClick={placeOrder} className='text-2xl rounded-lg shadow-md bg-[#2e4fd2] text-white font-medium px-4 py-2'>+ New Order</button>}
           </div>
 
