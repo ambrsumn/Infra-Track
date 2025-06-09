@@ -354,7 +354,7 @@ function OrderDetailsPage() {
                             <p className=' mt-4 text-center text-2xl mb-12 text-green-500 font-semibold'>Order Tracking</p>
                         </div>
 
-                        <ul className=' text-center text-xl text-white'>
+                        <ul className=' text-center text-xl text-white h-[70vh] overflow-y-auto'>
                             {
                                 progressGraph.map((item, index) => {
                                     return (

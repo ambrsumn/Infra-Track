@@ -78,7 +78,7 @@ function LoginPage() {
     return (
         <>
 
-            {!loading && <div className=' w-[60%] h-[50%] mx-auto mt-24 px-6 py-4 my-auto rounded-3xl shadow-md bg-[#212529] text-white'>
+            {!loading && <div className=' w-[60%] h-fit mx-auto mt-24 px-6 py-4 my-auto rounded-3xl shadow-md bg-[#212529] text-white'>
                 <p className=' text-2xl mb-12 italic text-blue-500'>Login To Your Account</p>
 
 
